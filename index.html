@@ -1,0 +1,408 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NeuroEngineX — AI-driven MEV research & execution</title>
+  <meta name="description" content="NeuroEngineX — an AI-driven, transparent, non-custodial MEV research & execution platform. Built on Solana and powered by Helius." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{--bg-very-dark:#030305;--panel:#0b0b0d;--muted:#94a3b8;--accent-1:#f59e0b;--accent-2:#f97316;}    
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;}
+    .mono{font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;}
+    .panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.15));}
+    .glass{background:rgba(255,255,255,0.02);backdrop-filter:blur(6px);}
+    .gold-text{background: -webkit-linear-gradient(90deg,var(--accent-1),var(--accent-2));-webkit-background-clip: text;-webkit-text-fill-color: transparent}
+    .metric{font-variant-numeric: tabular-nums;}
+    /* terminal styles */
+    .terminal{background:#000; border-radius:8px; padding:12px; box-shadow: 0 6px 30px rgba(0,0,0,0.7);}    
+    .term-line{color:#6ef08a; font-size:13px;}
+    .term-prompt{color:#8be9fd}
+    /* transactions */
+    .tx-plus{color:#7ef7b1}
+    .tx-addr{color:#9bd0ff}
+    .tx-panel{background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(0,0,0,0.2)); border-radius:10px; padding:12px}
+
+    /* metric icons and sparklines */
+    .metric-card{display:flex;align-items:center;gap:12px}
+    .icon-wrap{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.08));box-shadow: inset 0 1px 0 rgba(255,255,255,0.02)}
+    .icon-spark svg{display:block;width:80px;height:28px}
+    .pulse{animation:pulse 1800ms infinite}
+    @keyframes pulse{0%{transform:scale(1);opacity:1}50%{transform:scale(1.06);opacity:0.9}100%{transform:scale(1);opacity:1}}
+
+    .up {color: #7ef7b1}
+    .down {color: #ff8a8a}
+  </style>
+</head>
+<body class="bg-[color:var(--bg-very-dark)] text-slate-100 antialiased">
+  <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <div class="w-11 h-11 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center font-extrabold text-black">NEX</div>
+      <div>
+
+        <a href="#" class="text-xl font-extrabold tracking-tight">NeuroEngineX</a>
+        <p class="text-xs text-slate-400">AI-driven MEV research · non-custodial execution</p>
+      </div>
+    </div>
+    <nav class="hidden md:flex items-center gap-6 text-sm text-slate-300">
+      <a href="#features" class="hover:text-white">Features</a>
+      <a href="#metrics" class="hover:text-white">Live Metrics</a>
+      <a href="#roadmap" class="hover:text-white">Roadmap</a>
+      <a href="#contact" class="px-3 py-2 border border-slate-800 rounded hover:bg-slate-800">Get Early Access</a>
+    </nav>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6">
+    <!-- Hero -->
+    <section class="grid md:grid-cols-2 gap-8 items-center py-12">
+      <div>
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">NeuroEngineX — premium AI-driven MEV execution</h1>
+        <p class="mt-4 text-lg text-slate-400">Neural optimization, ultra-low-latency infra and verifiable execution. Built on <span class="font-semibold">Solana</span> and powered by <span class="font-semibold">Helius</span>.</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#get-started" class="inline-flex items-center gap-2 bg-amber-400 text-black px-5 py-3 rounded-md font-semibold shadow-md">Join Early Access</a>
+          <a href="https://github.com/neuroenginex/mev" class="inline-flex items-center gap-2 border border-slate-700 px-4 py-3 rounded-md text-slate-200">View Demo</a>
+        </div>
+
+        <div class="mt-6 grid grid-cols-3 gap-3 text-sm text-slate-300">
+          <div class="glass p-3 rounded">
+            <div class="text-xs uppercase">Chains</div>
+            <div class="font-semibold">Solana · L2s</div>
+          </div>
+          <div class="glass p-3 rounded">
+            <div class="text-xs uppercase">Mode</div>
+            <div class="font-semibold">Non-custodial · Research-first</div>
+          </div>
+          <div class="glass p-3 rounded">
+            <div class="text-xs uppercase">Fee</div>
+            <div class="font-semibold">Performance split — transparent</div>
+          </div>
+        </div>
+
+        <div class="mt-6 text-xs text-slate-500">
+          <strong>Note:</strong> NeuroEngineX is a research & execution platform. We do not hold user funds. Use testnets and read our docs before connecting live wallets.
+        </div>
+      </div>
+
+      <!-- Right: premium panel with terminal -->
+      <div class="panel rounded-2xl p-6 shadow-lg">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-xs text-slate-400">Live Runtime</div>
+            <div class="text-2xl font-semibold metric" id="daily-pnl">$0.00</div>
+            <div class="text-xs text-slate-500">Demo values are illustrative — production publishes on-chain proofs.</div>
+          </div>
+          <div class="text-sm text-slate-400">Status: <span id="status" class="text-emerald-400 font-medium">Connected</span></div>
+        </div>
+
+        <div class="mt-4 grid grid-cols-2 gap-4">
+          <div class="p-3 rounded bg-black/30 metric-card">
+            <div class="icon-wrap pulse" id="icon-pnl" aria-hidden>
+              <!-- dollar SVG -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 1v22" stroke="#ffd27a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 5H9.5a3.5 3.5 0 000 7H15a3.5 3.5 0 010 7H7" stroke="#ffd27a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <div class="text-xs text-slate-400">Daily PnL</div>
+              <div class="text-lg font-semibold metric" id="metric-pnl">$0</div>
+              <div class="text-xs text-slate-500"><span id="pnl-delta" class="up">+0.0%</span> vs 24h</div>
+            </div>
+          </div>
+
+          <div class="p-3 rounded bg-black/30 metric-card">
+            <div class="icon-wrap pulse" id="icon-trades" aria-hidden>
+              <!-- lightning SVG -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" stroke="#9ee6ff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <div class="text-xs text-slate-400">Trades / day</div>
+              <div class="text-lg font-semibold metric" id="metric-trades">0</div>
+              <div class="text-xs text-slate-500"><span id="trades-delta" class="up">+3%</span> vs 24h</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 grid grid-cols-2 gap-4">
+          <div class="p-3 rounded bg-black/30 metric-card">
+            <div class="icon-wrap pulse" id="icon-capture" aria-hidden>
+              <!-- target SVG -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="#b8ffb2" stroke-width="1.4"/><circle cx="12" cy="12" r="5" stroke="#b8ffb2" stroke-width="1.4"/></svg>
+            </div>
+            <div>
+              <div class="text-xs text-slate-400">Avg capture</div>
+              <div class="text-lg font-semibold metric" id="metric-capture">$0</div>
+              <div class="text-xs text-slate-500">per trade</div>
+            </div>
+          </div>
+
+          <div class="p-3 rounded bg-black/30 metric-card">
+            <div class="icon-wrap pulse" id="icon-uptime" aria-hidden>
+              <!-- shield SVG -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z" stroke="#c6d8ff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <div class="text-xs text-slate-400">Uptime</div>
+              <div class="text-lg font-semibold metric" id="metric-uptime">99.99%</div>
+              <div class="text-xs text-slate-500">last 30 days</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 grid md:grid-cols-2 gap-4">
+          <div>
+            <!-- Terminal emulator -->
+            <div id="terminal" class="terminal mt-3 mono text-sm">
+              <!-- lines injected by JS -->
+              <div id="term-content" style="min-height:120px; max-height:170px; overflow:auto;"></div>
+              <div class="mt-2 text-xs text-slate-500">Connection: Solana RPC via Helius • Non-custodial</div>
+            </div>
+          </div>
+
+          <div>
+            <!-- Recent transactions -->
+            <div class="tx-panel mt-3">
+              <div class="flex items-center justify-between">
+                <div class="text-sm text-slate-300">Recent Transactions</div>
+              </div>
+
+              <div id="tx-list" class="mt-3 space-y-2 text-sm mono" style="max-height:170px; overflow:auto;">
+                <!-- injected -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="py-10">
+      <h2 class="text-2xl font-semibold">What we build</h2>
+      <p class="text-slate-400 mt-2">Core pillars of NeuroEngineX.</p>
+
+      <div class="mt-6 grid md:grid-cols-3 gap-6">
+        <div class="p-6 panel rounded-lg">
+          <h3 class="font-semibold">AI-driven Search</h3>
+          <p class="mt-2 text-slate-400 text-sm">Neural models analyze streaming transactions and rank execution candidates in real time.</p>
+        </div>
+        <div class="p-6 panel rounded-lg">
+          <h3 class="font-semibold">Transparent Execution</h3>
+          <p class="mt-2 text-slate-400 text-sm">Non-custodial bundles and verifiable on-chain proofs. Users maintain custody of keys.</p>
+        </div>
+        <div class="p-6 panel rounded-lg">
+          <h3 class="font-semibold">Research Sandbox</h3>
+          <p class="mt-2 text-slate-400 text-sm">Replay historical mempools, test strategy changes, and measure outcomes in an isolated environment.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust & Backing -->
+    <section id="trust" class="py-10">
+      <h2 class="text-2xl font-semibold">Security, Transparency & Backing</h2>
+      <p class="text-slate-400 mt-2">Built on industry-standard Solana infrastructure and powered by Helius for fast indexing and mempool access.</p>
+
+      <div class="mt-6 flex flex-wrap gap-4 items-center">
+        <div class="p-4 panel rounded flex items-center gap-3">
+          <div>
+            <div class="text-sm font-semibold">Solana</div>
+            <div class="text-xs text-slate-400">Low-latency ledger for high-throughput execution</div>
+          </div>
+        </div>
+        <div class="p-4 panel rounded flex items-center gap-3">
+          <div>
+            <div class="text-sm font-semibold">Helius</div>
+            <div class="text-xs text-slate-400">Indexer & RPC tooling — fast mempool streams</div>
+          </div>
+        </div>
+        <div class="p-4 panel rounded flex items-center gap-3">
+          <div>
+            <div class="text-sm font-semibold">Third-party audits</div>
+            <div class="text-xs text-slate-400">Independent review of critical contracts & flows</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 text-xs text-slate-500">Important: We never request private keys, seed phrases, or direct deposits. We are non-custodial.</div>
+    </section>
+
+    <!-- Social proof / research notes -->
+    <section id="social-proof" class="py-10">
+      <h2 class="text-2xl font-semibold">Early research notes</h2>
+      <div class="mt-4 grid md:grid-cols-3 gap-4">
+        <blockquote class="p-4 panel rounded">"Identified cross-L2 arbitrage paths and replayed mempools at scale." — <span class="font-semibold">Alpha Research</span></blockquote>
+        <blockquote class="p-4 panel rounded">"Sandbox + verifiable proofs reduced our time-to-insight." — <span class="font-semibold">Validator Lab</span></blockquote>
+        <blockquote class="p-4 panel rounded">"Explainable models with deterministic execution traces." — <span class="font-semibold">QuantX</span></blockquote>
+      </div>
+    </section>
+
+
+    <!-- Get started / sign-up form -->
+    <section id="get-started" class="py-10">
+      <div class="max-w-2xl">
+        <h2 class="text-2xl font-semibold">Get early access</h2>
+        <p class="text-slate-400 mt-2">Join our early researcher waitlist. We prioritize auditors, validators, and institutional users.</p>
+
+        <form id="signup" class="mt-4 flex flex-col sm:flex-row gap-3">
+          <input type="email" required placeholder="your@work.email" class="flex-1 px-4 py-3 rounded bg-[#0b0b0d] border border-slate-800 focus:outline-none" />
+          <select name="interest" class="px-4 py-3 rounded bg-[#0b0b0d] border border-slate-800">
+            <option>Researcher</option>
+            <option>Validator</option>
+            <option>Quant/Fund</option>
+            <option>Other</option>
+          </select>
+          <button class="px-5 py-3 bg-amber-400 text-black rounded font-semibold">Request Access</button>
+        </form>
+        <p class="text-xs text-slate-500 mt-2">We will never ask for private keys. By joining you agree to our privacy policy.</p>
+      </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section id="roadmap" class="py-10">
+      <h2 class="text-2xl font-semibold">Roadmap</h2>
+      <ol class="mt-4 space-y-4 text-slate-300">
+        <li><strong>Q3:</strong> Sandbox, basic models, GitHub release</li>
+        <li><strong>Q4:</strong> Cross-chain adapters, public alpha, audits</li>
+        <li><strong>Q1 (next):</strong> Validator partnerships, on-chain proofs dashboard</li>
+      </ol>
+    </section>
+
+    <!-- Contact/ Footer -->
+    <section id="contact" class="py-12">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div>
+          <div class="text-xl font-semibold">Ready to collaborate?</div>
+          <div class="text-slate-400 mt-1">Contact: <a href="mailto:team@neuroenginex.space" class="underline">team@neuroenginex.space</a></div>
+        </div>
+
+        <div class="flex gap-4 items-center">
+          <a href="https://x.com/NeuroEngineX" aria-label="X" class="text-slate-400 hover:text-white">X</a>
+          <a href="https://github.com/neuroenginex/mev" aria-label="GitHub" class="text-slate-400 hover:text-white">GitHub</a>
+          <a href="https://github.com/neuroenginex/mev" aria-label="Docs" class="text-slate-400 hover:text-white">Docs</a>
+        </div>
+      </div>
+
+      <footer class="mt-8 text-xs text-slate-500">© NeuroEngineX • Not financial advice • Use testnets and read docs. We do not request private keys.</footer>
+    </section>
+  </main>
+
+  <script>
+    function animateCurrency(id, start, end, duration) {
+      const obj = document.getElementById(id);
+      if (!obj) return;
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const value = Math.floor(progress * (end - start) + start);
+        obj.textContent = value.toLocaleString('en-US', {style: 'currency', currency: 'USD', maximumFractionDigits: 0});
+        if (progress < 1) window.requestAnimationFrame(step);
+      };
+      window.requestAnimationFrame(step);
+    }
+
+    function randInt(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+    function randAddr(){
+      const chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+      let s='';
+      for(let i=0;i<44;i++) s+=chars.charAt(Math.floor(Math.random()*chars.length));
+      return s;
+    }
+
+    // Demo values — swap these with fetch calls to your analytics endpoints
+    setTimeout(() => {
+      animateCurrency('daily-pnl', 0, 5420, 1400);
+      document.getElementById('metric-pnl').textContent = '$5,420';
+      document.getElementById('metric-trades').textContent = '72';
+      document.getElementById('metric-capture').textContent = '$76';
+      document.getElementById('metric-uptime').textContent = '99.99%';
+
+      // fill recent transactions with demo data
+      const txList = document.getElementById('tx-list');
+      txList.innerHTML = '';
+      for(let i=0;i<8;i++){
+        const amt = (Math.random()*200 + 5).toFixed(2);
+        const addr = randAddr();
+        const el = document.createElement('div');
+        el.innerHTML = `<span class=\"tx-plus\">+ $${amt}</span> <span class=\"text-slate-500\">•</span> <a href=\"#\" class=\"tx-addr\">${addr.slice(0,6)}...${addr.slice(-6)}</a>`;
+        txList.appendChild(el);
+      }
+      document.getElementById('exec-trades').textContent = '72';
+      document.getElementById('cap-val').textContent = '$5,420';
+    }, 900);
+
+    // Signup form demo — will need server-side integration
+    document.getElementById('signup').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thanks — request submitted. We will email you about next steps.');
+      e.target.reset();
+    });
+
+    // Terminal emulator demo
+    (function(){
+      const lines = [
+        {type:'cmd', text:'Connecting to Solana via Helius RPC...'},
+        {type:'ok', text:'Subscribed to mempool stream (slot: 18,942,112)'},
+        {type:'ok', text:'Tracing tx: '+randAddr().slice(0,8)+'...'+randAddr().slice(-6)},
+        {type:'info', text:'Opportunity: sandwich (estimated capture: $'+(randInt(5,180)+'.'+(''+randInt(0,99)).padStart(2,'0'))+')'},
+        {type:'ok', text:'Constructing bundle — validating signatures'},
+        {type:'ok', text:'Submitted bundle to private relay — latency: '+(randInt(1,8)/1).toFixed(1)+'ms'},
+        {type:'ok', text:'Bundle included in block — proof: tx/'+randAddr().slice(0,10)},
+        {type:'cmd', text:'Listening...'}
+      ];
+
+      const container = document.getElementById('term-content');
+      let i = 0;
+      function typeLine(line, cb){
+        const el = document.createElement('div');
+        el.className = 'term-line';
+        const prompt = document.createElement('span');
+        prompt.className = 'term-prompt';
+        prompt.textContent = line.type === 'cmd' ? 'neuro@engine:~$ ' : '  > ';
+        el.appendChild(prompt);
+        const span = document.createElement('span');
+        span.style.whiteSpace = 'pre-wrap';
+        el.appendChild(span);
+        container.appendChild(el);
+        container.scrollTop = container.scrollHeight;
+
+        const text = line.text;
+        let idx = 0;
+        const speed = line.type === 'cmd' ? 18 : 6;
+        function tick(){
+          if(idx < text.length){
+            span.textContent += text.charAt(idx);
+            idx++;
+            container.scrollTop = container.scrollHeight;
+            setTimeout(tick, speed + Math.random()*10);
+          } else {
+            if(cb) setTimeout(cb, 200);
+          }
+        }
+        tick();
+      }
+
+      function runNext(){
+        if(i >= lines.length){
+          // loop with a pause and refresh lines
+          setTimeout(()=>{
+            container.innerHTML = '';
+            // regenerate dynamic lines
+            lines[2].text = 'Tracing tx: '+randAddr().slice(0,8)+'...'+randAddr().slice(-6);
+            lines[3].text = 'Opportunity: sandwich (estimated capture: $'+(randInt(5,180))+'.'+(''+randInt(0,99)).padStart(2,'0')+')';
+            lines[5].text = 'Submitted bundle to private relay — latency: '+(randInt(1,8)/1).toFixed(1)+'ms';
+            lines[6].text = 'Bundle included in block — proof: tx/'+randAddr().slice(0,10);
+            i = 0;
+            runNext();
+          }, 3500);
+          return;
+        }
+        typeLine(lines[i], ()=>{ i++; runNext(); });
+      }
+
+      // start typing after a short delay
+      setTimeout(runNext, 700);
+    })();
+  </script>
+</body>
+</html>
